@@ -1,2 +1,2 @@
-# bumblis_com
+## Bumblis.com
 Personal static site
