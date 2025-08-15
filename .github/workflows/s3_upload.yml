@@ -18,11 +18,8 @@ jobs:
           role-to-assume: arn:aws:iam::972709131187:role/githubActions
           aws-region: us-east-2
       
-      - name: Deploy
+      - name: Upload to S3
         run: aws s3 sync ./static s3://bumblis.com/
-      
-      - name: Debug CloudFront secret
-        run: echo "DIST ID is '${{ secrets.CLOUDFRONT_DIST_ID }}'"  
 
       - name: Invalidate CloudFront cache
         run: aws cloudfront create-invalidation --distribution-id "${{ secrets.CLOUDFRONT_DIST_ID }}" --paths "/index.html"
