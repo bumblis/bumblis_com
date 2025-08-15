@@ -20,8 +20,9 @@ jobs:
       
       - name: Deploy
         run: aws s3 sync ./static s3://bumblis.com/
+      
+      - name: Debug CloudFront secret
+        run: echo "DIST ID is '${{ secrets.CLOUDFRONT_DIST_ID }}'"  
 
       - name: Invalidate CloudFront cache
-        run: aws cloudfront create-invalidation \
-            --distribution-id ${{ secrets.CLOUDFRONT_DIST_ID }} \
-            --paths "/index.html"
+        run: aws cloudfront create-invalidation --distribution-id "${{ secrets.CLOUDFRONT_DIST_ID }}" --paths "/index.html"
