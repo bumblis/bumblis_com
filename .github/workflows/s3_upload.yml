@@ -1,0 +1,22 @@
+name: Upload to S3
+
+on: [workflow_dispatch]
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@master
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::972709131187:role/githubActions
+          aws-region: us-east-2
+      
+      - name: Deploy
+        run: aws s3 sync ./static s3://bumblis.com/
